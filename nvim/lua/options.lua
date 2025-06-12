@@ -1,6 +1,3 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- TODO:
 -- lsp completions
 -- better hover window
@@ -8,10 +5,16 @@ vim.g.maplocalleader = ' '
 -- telescope
 -- oil.nvim
 -- toggleterm
+-- emulate tmux splits/zoom within kitty+nvim
+-- git signs?
+-- maybe add task runner and parse output into quickfix
 -- formatting/linting
 -- tweak colorscheme
 -- folding: ufo.nvim
 -- debugging
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Allow cursor wrap
 vim.cmd 'set whichwrap+=<,>,[,],h,l'
@@ -32,8 +35,12 @@ vim.cmd 'set whichwrap+=<,>,[,],h,l'
 --   foldsep = ' ',
 -- }
 
+-- Schedule the setting after `UiEnter` because it can increase startup-time.
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
+
 vim.opt.breakindent = true
-vim.opt.clipboard = 'unnamedplus'
 vim.opt.cmdheight = 0
 vim.opt.confirm = true
 vim.opt.cursorline = true
@@ -47,6 +54,7 @@ vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 5
+vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 4
 vim.opt.showtabline = 0

@@ -140,4 +140,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
   },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    opts = {
+      suppressed_dirs = { '/', '~/', '~/Downloads' },
+    }
+  }
 }

@@ -21,6 +21,7 @@ if status is-interactive
     alias vi="nvim"
     alias vim="nvim"
     alias vimdiff="nvim -d"
+    alias lg="lazygit"
     alias ls="eza --icons=always --group-directories-first --all"
     alias ll="eza --icons=always --group-directories-first --all --long --header"
     alias hm-switch="home-manager switch --flake ~/.dotfiles --impure"

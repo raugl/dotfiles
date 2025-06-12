@@ -6,20 +6,26 @@ local lsp_on_attach = function(client, bufnr)
     vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
   end
 
-  keymap('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  keymap('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-  keymap('n', 'gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+  local hover = function()
+    vim.lsp.buf.hover({ border = 'single', anchor_bias = 'above' })
+  end
+
+  keymap('n', 'K', hover, 'Hover Documentation')
   keymap('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  keymap('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
   keymap('n', 'gl', vim.diagnostic.open_float, 'Show diagnostic error messages')
-  keymap('n', '<leader>ld', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  keymap('n', '<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
-  keymap('n', '<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
   keymap('n', '<leader>lr', vim.lsp.buf.rename, '[R]ename')
   keymap('n', '<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
   keymap('n', '<leader>lk', vim.diagnostic.goto_prev, 'Go to previous [D]iagnostic message')
   keymap('n', '<leader>lj', vim.diagnostic.goto_next, 'Go to next [D]iagnostic message')
   keymap('n', '<leader>lq', vim.diagnostic.setloclist, 'Open diagnostic [Q]uickfix list')
+
+  local builtin = require 'telescope.builtin'
+  keymap('n', 'gr', builtin.lsp_references, '[G]oto [R]eferences')
+  keymap('n', 'gd', builtin.lsp_definitions, '[G]oto [D]efinition')
+  keymap('n', 'gI', builtin.lsp_implementations, '[G]oto [I]mplementation')
+  keymap('n', '<leader>ld', builtin.lsp_type_definitions, 'Type [D]efinition')
+  keymap('n', '<leader>ls', builtin.lsp_document_symbols, 'Document [S]ymbols')
+  keymap('n', '<leader>lS', builtin.lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
 
   -- Enable lsp reference highlighting
   if client and client.server_capabilities.documentHighlightProvider then
@@ -48,9 +54,6 @@ return {
       },
     },
     config = function()
-      local lspconfig = require 'lspconfig'
-
-      -- Visual settings for lsp windows
       vim.diagnostic.config {
         virtual_text = {
           spacing = 8,
@@ -61,9 +64,7 @@ return {
         severity_sort = true,
         float = { border = 'single' },
       }
-      -- FIXME:
-      -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border =  'single' })
-      -- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border =  'single' })
+      local lspconfig = require 'lspconfig'
 
       lspconfig['lua_ls'].setup {
         on_attach = lsp_on_attach,
@@ -98,7 +99,7 @@ return {
       }
     end,
   },
-  {   -- TODO:
+  {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
@@ -117,12 +118,26 @@ return {
         ['<C-h>'] = { 'snippet_backward', 'fallback' },
       },
       appearance = { nerd_font_variant = 'normal' },
-
-      signature = { enabled = true },
-      completion = { documentation = { auto_show = true } },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 100,
+          window = { border = 'single' }
+        },
+        menu = { border = 'single' },
+        keyword = { range = 'full' },
+        list = {
+          selection = { preselect = false, auto_insert = false }
+        },
+      },
+      signature = {
+        enabled = true,
+        window = { border = 'single' }
+      },
+      cmdline = { enabled = false },
     },
   },
-  {   -- FIXME: format on save doesn't work
+  { -- FIXME: format on save doesn't work
     'stevearc/conform.nvim',
     event = 'BufWritePre',
     keys = '<leader>lf',

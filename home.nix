@@ -18,7 +18,7 @@
     gcc
     gnumake
     jq
-    kitty
+    # kitty
     lua-language-server
     meson
     neovim

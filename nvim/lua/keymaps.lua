@@ -90,6 +90,7 @@ vim.keymap.set('i', '<c-del>', '<C-o>de', { silent = true })
 vim.keymap.set('n', '<esc>', close_floating, { desc = 'Close floating windows' })
 vim.keymap.set('n', '<leader>w', '<cmd>wa<cr>', { desc = '[W]rite all files' })
 vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = 'Close window' })
+vim.keymap.set('n', '<leader>Q', '<cmd>qa<cr>', { desc = 'Quit neovim' })
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = '[V]isual select [A]ll' })
 
 vim.keymap.set({ 'n', 'v' }, 'gg', 'gg0', { desc = 'Move cursor to first character in buffer', silent = true })

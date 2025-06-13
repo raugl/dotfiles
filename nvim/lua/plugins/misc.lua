@@ -14,11 +14,12 @@ return {
   {
     'petertriho/nvim-scrollbar',
     event = { 'BufNewFile', 'BufReadPre' },
-    config = function()
-      require 'scrollbar'.setup {
-        handlers = { cursor = false },
-        handle = { color = '#3b4261' },
-      }
+    opts = {
+      handlers = { cursor = false },
+      handle = { color = '#3b4261' },
+    },
+    config = function(_, opts)
+      require 'scrollbar'.setup(opts)
     end
   },
   {
@@ -109,7 +110,7 @@ return {
         char = { autohide = true, jump_labels = true },
       }
     },
-    config = function(opts)
+    config = function(_, opts)
       require 'flash'.setup(opts)
       vim.keymap.set({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end)
     end,
@@ -138,7 +139,33 @@ return {
   {
     'stevearc/oil.nvim',
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
+    keys = {
+      { '<leader>k', '<cmd>Oil<cr>', desc = "Open oil" }
+    },
+    opts = {
+      keymaps = {
+        ["-"] = { "actions.parent", mode = "n" },
+        ["<cr>"] = "actions.select",
+        ["<esc>"] = { "actions.close", mode = "n" },
+        ["<leader>q"] = { "actions.close", mode = "n" },
+        ["<leader>-"] = { "actions.select", opts = { horizontal = true } },
+        ["<leader>\\"] = { "actions.select", opts = { vertical = true } },
+        ["<M-l>"] = "actions.select",
+        ["<M-h>"] = { "actions.parent", mode = "n" },
+        ["g?"] = { "actions.show_help", mode = "n" },
+        ["gs"] = { "actions.change_sort", mode = "n" },
+        ["gx"] = "actions.open_external",
+        ["g."] = { "actions.toggle_hidden", mode = "n" },
+        -- ["<C-l>"] = "actions.refresh",
+        -- ["_"] = { "actions.open_cwd", mode = "n" },
+        -- ["`"] = { "actions.cd", mode = "n" },
+        -- ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        -- ["g\\"] = { "actions.toggle_trash", mode = "n" },
+      },
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      prompt_save_on_select_new_entry = false,
+    },
   },
   {
     'rmagatti/auto-session',

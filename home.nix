@@ -10,25 +10,26 @@
 
   home.packages = with pkgs; [
     alejandra
-    clang-tools
-    cmakeMinimal
+    # clang-tools
+    # cmakeMinimal
     eza
     fd
     fish
-    gcc
-    gnumake
+    # gcc
+    # gnumake
+    # pkg-config
     jq
     # kitty
     lua-language-server
     meson
     neovim
-    ninja
+    # ninja
     nixd
     ripgrep
     sshfs
     stylua
-    zig
-    zls
+    # zig
+    # zls
     zoxide
   ];
 

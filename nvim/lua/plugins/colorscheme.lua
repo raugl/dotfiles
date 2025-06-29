@@ -26,6 +26,7 @@ return {
         hl['@keyword'] = { link = "Statement" }
         hl['Conditional'] = { fg = c.purple, italic = true }
         hl['@variable.builtin'] = { link = '@variable' }
+        hl['@label'] = { fg = c.red }
 
         -- hl['@punctuation.special'] = { fg = c.blue5 }
         -- hl['@punctuation.bracket'] = { fg = c.blue5 }

@@ -72,6 +72,9 @@ return {
       lspconfig['clangd'].setup {
         on_attach = lsp_on_attach,
       }
+      lspconfig['glsl_analyzer'].setup {
+        on_attach = lsp_on_attach,
+      }
       lspconfig['zls'].setup {
         settings = {
           zls = {

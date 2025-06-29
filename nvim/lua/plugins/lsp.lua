@@ -69,6 +69,9 @@ return {
       lspconfig['lua_ls'].setup {
         on_attach = lsp_on_attach,
       }
+      lspconfig['clangd'].setup {
+        on_attach = lsp_on_attach,
+      }
       lspconfig['zls'].setup {
         settings = {
           zls = {
